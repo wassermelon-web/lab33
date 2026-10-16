@@ -1,4 +1,4 @@
-import math
+
 
 log = ""
 total_min = 0
@@ -39,12 +39,12 @@ while True:
             print("Укажите вид тренировки.")
             continue
         try:
-            minutes = float(minutes_text.replace(",", "."))
+            minutes = float(minutes_text)
         except ValueError:
             print("Ошибка: минуты должны быть числом.")
             continue
 
-        if not math.isfinite(minutes) or minutes <= 0:
+        if minutes <= 0:
             print("Ошибка: укажите конечное число больше нуля.")
             continue
 
