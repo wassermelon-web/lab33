@@ -1,0 +1,56 @@
+import math
+
+log = ""
+total_min = 0
+
+print("Дневник тренировок")
+print("Команды: add <вид> <минуты>, list, total, exit")
+
+while True:
+    command = input("Введите команду:")
+    if command == "exit":
+        print("До свидания")
+        break
+    elif command == "list":
+        if log:
+            print(log, end='')
+        else:
+            print("Записей нет")
+    elif command == "total":
+        print(f"Общее время тренировок:{total_min} мин")
+    elif command.startswith("add"):
+        first_space = command.find(" ")
+
+        if first_space == -1:
+            print("Укажите вид тренировки и количество минут.")
+            continue
+
+        data = command[first_space + 1:].strip()
+        last_space = data.rfind(" ")
+
+        if last_space == -1:
+            print("Укажите вид тренировки и количество минут.")
+            continue
+
+        exercise = data[:last_space].strip()
+        minutes_text = data[last_space + 1:].strip()
+
+        if not exercise:
+            print("Укажите вид тренировки.")
+            continue
+        try:
+            minutes = float(minutes_text.replace(",", "."))
+        except ValueError:
+            print("Ошибка: минуты должны быть числом.")
+            continue
+
+        if not math.isfinite(minutes) or minutes <= 0:
+            print("Ошибка: укажите конечное число больше нуля.")
+            continue
+
+        log += f"{exercise} — {minutes} мин \n"
+        total_min += minutes
+        print("Тренировка добавлена.")
+
+    else:
+        print("Данная команда недоступна, введите одну из доступных")
