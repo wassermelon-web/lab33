@@ -1,16 +1,16 @@
-
-
 log = ""
 total_min = 0
 
 print("Дневник тренировок")
-print("Команды: add <вид> <минуты>, list, total, exit")
 
 while True:
     command = input("Введите команду:")
+
     if command == "exit":
         print("До свидания")
         break
+    elif command == "help":
+        print("Список команд:add <вид> <минуты>, total, list, exit")
     elif command == "list":
         if log:
             print(log, end='')
@@ -45,7 +45,7 @@ while True:
             continue
 
         if minutes <= 0:
-            print("Ошибка: укажите конечное число больше нуля.")
+            print("Ошибка: укажите число больше нуля.")
             continue
 
         log += f"{exercise} — {minutes} мин \n"
@@ -53,4 +53,5 @@ while True:
         print("Тренировка добавлена.")
 
     else:
-        print("Данная команда недоступна, введите одну из доступных")
+        print("Данная команда недоступна, введите help, чтобы увидеть список доступных команд")
+
