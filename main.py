@@ -1,0 +1,61 @@
+from training import *
+
+log = ""
+total_min = 0
+
+print("Дневник тренировок")
+
+while True:
+    command = input("Введите команду:")
+
+    if command == "exit":
+        random_phrase()
+        print("До свидания")
+        break
+    elif command == "help":
+        show_help()
+    elif command == "list":
+        if log:
+            print(log, end='')
+        else:
+            print("Записей нет")
+    elif command == "total":
+        print(f"Общее время тренировок:{total_min} мин")
+    elif command.startswith("add"):
+        first_space = command.find(" ")
+
+        if first_space == -1:
+            print("Укажите вид тренировки и количество минут.")
+            continue
+
+        data = command[first_space + 1:].strip()
+        last_space = data.rfind(" ")
+
+        if last_space == -1:
+            print("Укажите вид тренировки и количество минут.")
+            continue
+
+        exercise = data[:last_space].strip()
+        minutes_text = data[last_space + 1:].strip()
+
+        if not exercise:
+            print("Укажите вид тренировки.")
+            continue
+        try:
+            minutes = float(minutes_text)
+        except ValueError:
+            print("Ошибка: минуты должны быть числом.")
+            continue
+
+        if minutes <= 0:
+            print("Ошибка: укажите число больше нуля.")
+            continue
+
+        log = add_workout(log, exercise, minutes)
+        total_min = total_minutes(total_min, minutes)
+        print("Тренировка добавлена.")
+
+    else:
+        print("Данная команда недоступна, введите help, чтобы увидеть список доступных команд")
+
+
